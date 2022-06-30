@@ -1,0 +1,9 @@
+project     = "sympledemo"
+region      = "an2" # AWS region alias
+environment = "Testbed"
+env         = "t"   # environment alias
+domain      = "sympledemo.tk"
+owner       = "symplesims@gmail.com"
+team        = "DevOps"
+hostname    = "hello"
+lambda_port = 80
