@@ -16,6 +16,7 @@ Terraform 모듈을 이용하여 ALB 와 Lambda 를 연동하여 서비스하는
 - CloudWatch LogGroup: Lambda 애플리케이션 서비스의 로그를 수집합니다.
 - IAM Role: Lambda 배치 및 실행을 위한 롤 및 정책이 구성 됩니다.
 
+<br>
 
 ## Pre-requisite
 
@@ -24,26 +25,18 @@ Terraform 모듈을 이용하여 ALB 와 Lambda 를 연동하여 서비스하는
    아래 `docker images` 명령을 통해 아래와 같이 정상 동적 여부를 확인 하세요.  
 ![](images/docker-img.png)
 
-<br>
-
 - [AWS CLI 설치](https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/install-cliv2.html) 가이드를 참고하여 구성해 주세요.
 
-<br>
-
-- [AWS Confiugre](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) 가이드를 참고하여 프로파일을 설정 합니다.
+- [AWS Confiugre](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) 가이드를 참고하여 프로파일을 설정 합니다.  
 `aws configure --profile produser` 명령 참고 
-
-<br>
 
 - 인터넷 서비스를 위한 도메인을 발급 받고 Route 53 의 Public Host Zone 을 사전에 구성해 주세요.  
   [도메인 발급 및 Route53 구성](https://symplesims.github.io/devops/route53/acm/hosting/2022/01/11/aws-route53.html) 을 참고 하여 무료 도메인을 한시적으로 활용할 수 있습니다.
 
-<br>
-
 - Git, Terraform, AWS-CLI, NodeJS 등 주요 프로그램을 로컬 환경(PC) 에 설치 및 설정 하세요.  
   [Mac OS 개발자를 위한 로컬 개발 환경 구성](https://symplesims.github.io/development/setup/macos/2021/12/02/setup-development-environment-on-macos.html) 을 참고 하면 좋습니다.
 
-
+<br>
 
 ## Git
 ```
@@ -53,6 +46,7 @@ git clone https://github.com/chiwoo-cloud-native/aws-alb-lambda-helloworld.git
 cd aws-alb-lambda-helloworld
 ```
 
+<br>
 
 ## Build
 Terraform 모듈을 통해 AWS 클라우드 리소스를 한번에 구성 합니다.
@@ -66,12 +60,18 @@ terraform -chdir=alb apply -var-file=../terraform.tfvars -auto-approve && \
 terraform -chdir=helloworld apply -var-file=../terraform.tfvars -auto-approve
 ```
 
+<br>
+
 ## Check
-curl 명령을 통해 helloworld 서비스가 정상인지 확인해 봅니다. 
+
+cURL 명령을 통해 helloworld 서비스가 정상인지 확인해 봅니다. 
 
 ```
 curl -v -XGET --location https://hello.sympledemo.tk/ 
 ```
+
+<br>
+
 
 ## Destroy
 
