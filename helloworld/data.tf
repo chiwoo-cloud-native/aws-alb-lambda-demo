@@ -15,31 +15,6 @@ data "aws_vpc" "this" {
   }
 }
 
-# Subnets
-data "aws_subnets" "pub" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.this.id]
-  }
-  filter {
-    name   = "tag:Name"
-    values = [ format("%s-pub*", local.name_prefix) ]
-  }
-}
-
-data "aws_subnet" "pub" {
-  for_each = toset(data.aws_subnets.pub.ids)
-  id       = each.value
-}
-
-locals {
-  pub_cidr_blocks = [for s in data.aws_subnet.pub : s.cidr_block]
-}
-
-output "pub_cidr_blocks" {
-  value = local.pub_cidr_blocks
-}
-
 data "aws_subnets" "hello" {
   filter {
     name   = "vpc-id"
@@ -59,4 +34,8 @@ data "aws_alb" "this" {
 data "aws_alb_listener" "pub_https" {
   load_balancer_arn = data.aws_alb.this.arn
   port              = 443
+}
+
+data "aws_security_group" "alb_sg" {
+  name = format("%s-pub-alb-sg", local.name_prefix)
 }

@@ -10,19 +10,20 @@ resource "aws_security_group" "this" {
   tags = merge(local.tags, {
     Name = local.sg_name
   })
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "ingress_rule" {
   security_group_id        = aws_security_group.this.id
+  description              = "Allows lambda to establish connections from ALB"
   type                     = "ingress"
-  description              = "HTTP ALB to Lambda"
   from_port                = var.lambda_port
   to_port                  = var.lambda_port
   protocol                 = "TCP"
-  # ALB 보안 그룹을 source 로 참조 하면 의존성 문제로 terraform destroy 에서 삭제 되지 않는 문제가 발생 합니다.
-  source_security_group_id = try(element(data.aws_alb.this.security_groups, 0), "")
-  # cidr_blocks = [data.aws_subnet.pub.cidr_block]
-  # cidr_blocks = [local.pub_cidr_blocks]
+  source_security_group_id = data.aws_security_group.alb_sg.id
 }
 
 resource "aws_security_group_rule" "egress_rule" {
