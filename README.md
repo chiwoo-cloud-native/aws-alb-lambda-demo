@@ -26,7 +26,16 @@ Terraform 모듈을 이용하여 ALB 와 Lambda 를 연동하여 서비스하는
 
 <br>
 
-- 인터넷 서비스를 위한 도메인을 발급 받고 Route 53 의 Public Host Zone 을 구성해 주세요.  
+- [AWS CLI 설치](https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/install-cliv2.html) 가이드를 참고하여 구성해 주세요.
+
+<br>
+
+- [AWS Confiugre](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) 가이드를 참고하여 프로파일을 설정 합니다.
+`aws configure --profile produser` 명령 참고 
+
+<br>
+
+- 인터넷 서비스를 위한 도메인을 발급 받고 Route 53 의 Public Host Zone 을 사전에 구성해 주세요.  
   [도메인 발급 및 Route53 구성](https://symplesims.github.io/devops/route53/acm/hosting/2022/01/11/aws-route53.html) 을 참고 하여 무료 도메인을 한시적으로 활용할 수 있습니다.
 
 <br>
